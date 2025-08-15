@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>خط التعافي من الميث — تفاعلي ومُبشِّر</title>
+  <title>خط التعافي من الادمان — تفاعلي ومُبشِّر</title>
   <meta name="description" content="خط زمني تفاعلي يوضح التحسن التدريجي أثناء التعافي من الميثامفيتامين — بلغة بسيطة لأفراد الأسرة." />
   <style>
     :root{
@@ -42,12 +42,12 @@
     .bar{position:absolute; inset:0; transform-origin:right;}
     .bar .fill{position:absolute; inset:0; width:0%; background:linear-gradient(90deg, #9ae6b4, #86efac, #67e8f9); box-shadow: inset 0 0 10px rgba(34,197,94,.35)}
 
-    .markers{position:relative; margin-top:28px;}
-    .marker{--size:24px; position:absolute; top:0; translate:-50% 0; width:var(--size); height:var(--size); border-radius:999px; border:3px solid #fff; outline:2px solid var(--accent-2); background:#0ea5e9; cursor:pointer}
+    .markers{position:relative; margin-top:28px; overflow-x:auto; padding-bottom:10px; scrollbar-width:thin; scrollbar-color:#cbd5e1 transparent;}
+    .marker{--size:24px; position:absolute; top:0; translate:-50% 0; width:var(--size); height:var(--size); border-radius:999px; border:3px solid #fff; outline:2px solid var(--accent-2); background:#0ea5e9; cursor:pointer; flex:0 0 auto}
     .marker .dot{position:absolute; inset:6px; border-radius:999px; background:#fff}
     .marker.active{background:#22c55e; outline-color:#22c55e}
     .marker:hover{transform:scale(1.04)}
-    .marker-label{position:absolute; top:36px; translate:-50% 0; font-size:12px; color:var(--muted); text-align:center; width:120px}
+    .marker-label{position:absolute; top:36px; translate:-50% 0; font-size:12px; color:var(--muted); text-align:center; width:120px; pointer-events:none}
 
     .legend{display:flex; gap:12px; align-items:center; margin-top:16px; color:var(--muted); font-size:14px}
     .legend .swatch{width:14px;height:14px;border-radius:999px;background:linear-gradient(90deg, #9ae6b4, #67e8f9); border:1px solid #a7f3d0}
@@ -66,7 +66,9 @@
     noscript ul{line-height:1.9}
 
     @media (max-width:640px){
-      .marker-label{width:80px}
+      .marker{--size:20px}
+      .marker-label{width:72px; font-size:11px; top:30px}
+    }
     }
   </style>
 </head>
@@ -76,7 +78,7 @@
       <div class="title">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <h1>خط التعافي من الميث — تفاعلي ومُبشِّر</h1>
+          <h1>خط التعافي من الميث — تفاعلي ومُبشِّر</h1>
           <p class="lead">أداة بسيطة بلغة الأسرة تُظهِر كيف يتحسّن الدماغ والجسم خطوة بخطوة. الغاية: <strong>زرع الأمل</strong>، وتتبع التقدّم، ومعرفة كيف ندعم من نحب.</p>
         </div>
       </div>
@@ -176,6 +178,7 @@
 
   // ————— عناصر الواجهة —————
   const markersWrap = document.getElementById('markers');
+  let trackEl = null;
   const panel = document.getElementById('panel');
   const fill = document.getElementById('fill');
   const daysInput = document.getElementById('daysInput');
@@ -191,9 +194,15 @@
 
   function renderMarkers(){
     markersWrap.innerHTML = '';
-    // خط أساسي بطول الحاوية
-    const wrapWidth = markersWrap.clientWidth || 1;
-    const barTop = 0;
+    // أنشئ مسارًا أعرض من الشاشة لتمكين السحب الأفقي على الجوال
+    trackEl = document.createElement('div');
+    trackEl.className = 'track';
+    trackEl.style.position = 'relative';
+    trackEl.style.height = '60px';
+    // اجعل العرض ديناميكي: أعرض من الحاوية بـ 1.8x على الشاشات الصغيرة
+    const wrapW = markersWrap.clientWidth || 360;
+    const minW = Math.max(1200, Math.floor(wrapW * 1.8));
+    trackEl.style.minWidth = minW + 'px';
 
     milestones.forEach(m => {
       const percent = daysToPercent(m.days);
@@ -211,9 +220,12 @@
       label.textContent = m.label;
       label.style.left = percent + '%';
 
-      markersWrap.appendChild(marker);
-      markersWrap.appendChild(label);
+      trackEl.appendChild(marker);
+      trackEl.appendChild(label);
     });
+
+    markersWrap.appendChild(trackEl);
+  });
   }
 
   // ————— عرض بطاقة المعلم —————
@@ -278,6 +290,18 @@
   let resizeTimer;
   window.addEventListener('resize', ()=>{
     clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderMarkers, 120);
+    // بعد إعادة الرسم، حاول تمرير أقرب موضع إلى العلامة النشطة في الوسط
+    try{
+      const active = document.querySelector('.marker.active') || document.querySelector('.marker');
+      if(active){
+        const rect = active.getBoundingClientRect();
+        const wrapRect = markersWrap.getBoundingClientRect();
+        const offset = (rect.left + rect.width/2) - (wrapRect.left + wrapRect.width/2);
+        markersWrap.scrollLeft += offset;
+      }
+    }catch(e){}
+  });
     resizeTimer = setTimeout(renderMarkers, 120);
   });
 
