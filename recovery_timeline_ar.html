@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>خط التعافي من الميث — تفاعلي ومُبشِّر</title>
+  <meta name="description" content="خط زمني تفاعلي يوضح التحسن التدريجي أثناء التعافي من الميثامفيتامين — بلغة بسيطة لأفراد الأسرة." />
+  <style>
+    :root{
+      --bg:#f8fafc;            /* slate-50 */
+      --card:#ffffff;          /* white */
+      --text:#0f172a;          /* slate-900 */
+      --muted:#475569;         /* slate-600 */
+      --accent:#22c55e;        /* green-500 */
+      --accent-2:#06b6d4;      /* cyan-500 */
+      --line:#e2e8f0;          /* slate-200 */
+      --shadow:0 10px 30px rgba(2,6,23,.08);
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Kufi Arabic, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 50% -10%, #eefbf7 0%, var(--bg) 60%);
+      color:var(--text);
+    }
+    .container{max-width:1000px; padding:24px; margin:0 auto;}
+    header{display:flex; gap:16px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;}
+    .title{display:flex; gap:12px; align-items:center;}
+    .logo{width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: var(--shadow); position:relative}
+    .logo:after{content:""; position:absolute; inset:6px; border-radius:10px; background:rgba(255,255,255,.35)}
+    h1{font-size:clamp(20px,4vw,28px); margin:0;}
+    .lead{color:var(--muted); line-height:1.7; margin-top:6px;}
+
+    .controls{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+    .chip{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:8px 12px; box-shadow: var(--shadow);}
+    .chip input{border:none; outline:none; width:80px; font-size:16px; background:transparent; text-align:center;}
+    .btn{border:none; background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff; padding:10px 14px; border-radius:12px; cursor:pointer; box-shadow: var(--shadow); font-weight:600}
+    .btn.ghost{background:#fff; color:var(--text); border:1px solid var(--line)}
+
+    .timeline-card{margin-top:20px; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow: var(--shadow)}
+
+    .bar-wrap{position:relative; height:14px; background:linear-gradient(90deg,#e5e7eb,#f1f5f9); border-radius:999px; overflow:hidden;}
+    .bar{position:absolute; inset:0; transform-origin:right;}
+    .bar .fill{position:absolute; inset:0; width:0%; background:linear-gradient(90deg, #9ae6b4, #86efac, #67e8f9); box-shadow: inset 0 0 10px rgba(34,197,94,.35)}
+
+    .markers{position:relative; margin-top:28px;}
+    .marker{--size:24px; position:absolute; top:0; translate:-50% 0; width:var(--size); height:var(--size); border-radius:999px; border:3px solid #fff; outline:2px solid var(--accent-2); background:#0ea5e9; cursor:pointer}
+    .marker .dot{position:absolute; inset:6px; border-radius:999px; background:#fff}
+    .marker.active{background:#22c55e; outline-color:#22c55e}
+    .marker:hover{transform:scale(1.04)}
+    .marker-label{position:absolute; top:36px; translate:-50% 0; font-size:12px; color:var(--muted); text-align:center; width:120px}
+
+    .legend{display:flex; gap:12px; align-items:center; margin-top:16px; color:var(--muted); font-size:14px}
+    .legend .swatch{width:14px;height:14px;border-radius:999px;background:linear-gradient(90deg, #9ae6b4, #67e8f9); border:1px solid #a7f3d0}
+
+    .milestone-panel{margin-top:18px; background:#f9fafb; border:1px solid var(--line); border-radius:14px; padding:14px}
+    .milestone-title{font-weight:700; margin:0 0 8px 0}
+    .milestone-badges{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
+    .badge{font-size:12px; padding:4px 8px; border-radius:12px; background:#ecfeff; border:1px solid #cffafe}
+    .section{margin:8px 0}
+    .section h3{margin:0 0 6px 0; font-size:14px; color:#0f766e}
+    .section p{margin:0; color:#0b1324; line-height:1.8}
+
+    .footer{margin:26px 0 8px; color:var(--muted); font-size:12px}
+
+    /* Fallback list if JS disabled */
+    noscript ul{line-height:1.9}
+
+    @media (max-width:640px){
+      .marker-label{width:80px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>خط التعافي من الميث — تفاعلي ومُبشِّر</h1>
+          <p class="lead">أداة بسيطة بلغة الأسرة تُظهِر كيف يتحسّن الدماغ والجسم خطوة بخطوة. الغاية: <strong>زرع الأمل</strong>، وتتبع التقدّم، ومعرفة كيف ندعم من نحب.</p>
+        </div>
+      </div>
+      <div class="controls" role="group" aria-label="أدوات">
+        <div class="chip" title="أدخل عدد الأيام النظيفة">
+          <span>عدد الأيام النظيفة:</span>
+          <input id="daysInput" type="number" min="0" inputmode="numeric" placeholder="0" aria-label="عدد الأيام منذ آخر تعاطٍ" />
+        </div>
+        <button class="btn" id="applyDays">حدّد موقعي الآن</button>
+        <button class="btn ghost" id="printBtn" title="حفظ أو طباعة">حفظ PDF/طباعة</button>
+      </div>
+    </header>
+
+    <section class="timeline-card" aria-labelledby="tl-title">
+      <h2 id="tl-title" style="margin:0 0 12px 0; font-size:18px">شريط التقدّم</h2>
+      <div class="bar-wrap" aria-hidden="true">
+        <div class="bar"><div class="fill" id="fill"></div></div>
+      </div>
+      <div class="markers" id="markers" aria-label="معالم الوقت"></div>
+      <div class="legend"><span class="swatch" aria-hidden="true"></span> <span>من البدايات الصعبة ⟵ إلى التعافي المستقر</span></div>
+
+      <div class="milestone-panel" id="panel" aria-live="polite">
+        <p style="margin:0; color:var(--muted)">اضغط/اضغطي على أي نقطة لمعرفة ما يتغير وكيف يمكن للأسرة أن تدعم في تلك المرحلة.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>تنبيه هام: هذه معلومات عامة داعمة ولا تُغني عن الرعاية الطبية أو النفسية المتخصصة. في حال الطوارئ أو أفكار أذى، اتصل/ي بخدمات الطوارئ المحلية فورًا.</div>
+    </footer>
+
+    <noscript>
+      <h3>نسخة مبسطة (بدون تفاعل):</h3>
+      <ul>
+        <li>24 ساعة: بدء استقرار الجسم؛ الأهم الراحة والماء.</li>
+        <li>72 ساعة: تحسن النوم والشهية.</li>
+        <li>أسبوع: تقلبات أقل؛ احتفلوا بالتقدم.</li>
+        <li>أسبوعان: انتباه أفضل.</li>
+        <li>شهر: شرارات متعة طبيعية.</li>
+        <li>3 أشهر: ذاكرة وتركيز أفضل.</li>
+        <li>6 أشهر: استقرار المزاج والنوم.</li>
+        <li>9 أشهر: ثقة وعادات صحية.</li>
+        <li>سنة: هوية متعافٍ أقوى.</li>
+        <li>18 شهرًا: مرونة نفسية أعلى.</li>
+        <li>سنتان: حياة مستقرة وقريبة من الخط الأساسي.</li>
+      </ul>
+    </noscript>
+  </div>
+
+  <script>
+  // ————— البيانات الأساسية للمعالم —————
+  const milestones = [
+    { id:'24h',    label:'24 ساعة',      days:1,    badges:['بدايات','الجسم'],
+      changes:`الجسم يبدأ بإخراج بقايا المنبهات. يميل ضغط الدم ونبض القلب إلى الانخفاض تدريجيًا. قد يظهر صداع وإرهاق ونوم متقطع — وهذا طبيعي في البداية.`,
+      family:`وفّروا ماء وطعامًا بسيطًا ومكانًا آمنًا للنوم. كلمات قصيرة مطمئنة مثل: “أول 24 ساعة هي الأصعب — ونحن معك.”`
+    },
+    { id:'72h',   label:'72 ساعة',       days:3,    badges:['النوم','الشهية'],
+      changes:`تحسن أولي في النوم والشهية. تبدأ الرغبة الشديدة بالتذبذب، مع لمحات هدوء أطول.`,
+      family:`ثبّتوا روتينًا بسيطًا: ضوء صباحي، مشي قصير، وجبات منتظمة، تجنب النقاشات الثقيلة.`
+    },
+    { id:'1w',    label:'أسبوع',         days:7,    badges:['المزاج','ضبابية'],
+      changes:`ضباب ذهني أخف قليلًا. المشاعر قد تبقى متقلبة لكنها أقل حدّة.`,
+      family:`احتفلوا بالأيام النظيفة. دعم بلا ضغط أو محاسبة. أنشطة هادئة كالأكل معًا أو مشاهدة فيلم.`
+    },
+    { id:'2w',    label:'أسبوعان',       days:14,   badges:['الانتباه'],
+      changes:`بداية تحسن الانتباه وهفوات الذاكرة أقل.`,
+      family:`اقترحوا مهام قصيرة (10–15 دقيقة) مع استراحات. امدحوا الجهد لا الكمال.`
+    },
+    { id:'1m',    label:'شهر',           days:30,   badges:['الدوبامين','الطاقة'],
+      changes:`نظام الدوبامين يعاير نفسه تدريجيًا؛ تظهر شرارات متعة طبيعية. طاقة يومية أوضح.`,
+      family:`شجّعوا أنشطة ممتعة خفيفة بلا محفزات قديمة (أماكن/أشخاص/موسيقى مرتبطة بالتعاطي).`
+    },
+    { id:'3m',    label:'3 أشهر',        days:90,   badges:['الذاكرة','التركيز','المزاج'],
+      changes:`تحسن ملموس في الذاكرة والتركيز واستقرار المزاج. نوبات القلق أو الاكتئاب أقل تواترًا وحدّة.`,
+      family:`الدعم العلاجي أو الجماعي يُفيد هنا. ساعدوا في الالتزام بالمواعيد والروتين الصحي (نوم، أكل، حركة).`
+    },
+    { id:'6m',    label:'6 أشهر',        days:180,  badges:['استقرار','النوم'],
+      changes:`نوم أكثر انتظامًا، إنتاجية أعلى، رغبات أقل وحدةً.`,
+      family:`ضعوا حدودًا صحية ولغة تقدير يومية. مكافآت غير مادية (وقت عائلة، نزهة).`
+    },
+    { id:'9m',    label:'9 أشهر',        days:270,  badges:['الهوية','العادات'],
+      changes:`تزداد الثقة بالذات وتترسخ العادات الصحية. تتحسن العلاقات تدريجيًا.`,
+      family:`قيّموا النجاحات ربع السنوية. وثّقوا التغيرات الإيجابية (قبل/بعد سلوكي).`
+    },
+    { id:'12m',   label:'سنة',           days:365,  badges:['مخاطر أقل'],
+      changes:`ينخفض خطر الانتكاس مع استمرار الدعم. تتقوى هوية “متعافٍ”.`,
+      family:`احتفال سنوي بسيط. المحافظة على شبكة الدعم وخطة للطوارئ عند الضغوط.`
+    },
+    { id:'18m',   label:'18 شهرًا',      days:548,  badges:['مرونة'],
+      changes:`مرونة نفسية أعلى وإدارة أفضل للضغوط والمحفزات.`,
+      family:`شجعوا على خدمة الآخرين/التطوع — مفيد للمعنى والاتزان.`
+    },
+    { id:'24m',   label:'سنتان',         days:730,  badges:['استقرار','خط الأساس'],
+      changes:`الكيمياء الدماغية قريبة من خط الأساس قبل الإدمان. حياة يومية مستقرة ومجزية.`,
+      family:`حافظوا على العادات والحدود الصحية، وواصلوا الاحتفالات بالمناسبات النظيفة.`
+    }
+  ];
+
+  // ————— عناصر الواجهة —————
+  const markersWrap = document.getElementById('markers');
+  const panel = document.getElementById('panel');
+  const fill = document.getElementById('fill');
+  const daysInput = document.getElementById('daysInput');
+  const applyBtn = document.getElementById('applyDays');
+  const printBtn = document.getElementById('printBtn');
+
+  // ————— بناء العلامات على الشريط —————
+  const totalDays = 730; // سنتان
+  function daysToPercent(d){
+    const v = Math.max(0, Math.min(totalDays, d));
+    return (v/totalDays)*100;
+  }
+
+  function renderMarkers(){
+    markersWrap.innerHTML = '';
+    // خط أساسي بطول الحاوية
+    const wrapWidth = markersWrap.clientWidth || 1;
+    const barTop = 0;
+
+    milestones.forEach(m => {
+      const percent = daysToPercent(m.days);
+      const marker = document.createElement('button');
+      marker.className = 'marker';
+      marker.style.left = percent + '%';
+      marker.setAttribute('type','button');
+      marker.setAttribute('aria-label', m.label);
+      marker.dataset.id = m.id;
+      marker.innerHTML = '<span class="dot" aria-hidden="true"></span>';
+      marker.addEventListener('click', ()=> showMilestone(m.id, true));
+
+      const label = document.createElement('div');
+      label.className = 'marker-label';
+      label.textContent = m.label;
+      label.style.left = percent + '%';
+
+      markersWrap.appendChild(marker);
+      markersWrap.appendChild(label);
+    });
+  }
+
+  // ————— عرض بطاقة المعلم —————
+  function showMilestone(id, fromClick=false){
+    document.querySelectorAll('.marker').forEach(el => el.classList.remove('active'));
+    const data = milestones.find(x => x.id === id) || milestones[0];
+    const currentMarker = [...document.querySelectorAll('.marker')].find(el => el.dataset.id === data.id);
+    if(currentMarker) currentMarker.classList.add('active');
+
+    panel.innerHTML = `
+      <h3 class="milestone-title">${data.label}</h3>
+      <div class="milestone-badges">${data.badges.map(b=>`<span class="badge">${b}</span>`).join('')}</div>
+      <div class="section">
+        <h3>ما الذي يتغير عادةً؟</h3>
+        <p>${data.changes}</p>
+      </div>
+      <div class="section">
+        <h3>كيف ندعم كعائلة؟</h3>
+        <p>${data.family}</p>
+      </div>
+      <div class="section" style="font-size:12px;color:#64748b; margin-top:12px">تذكير: التغيّر فردي وقد يختلف من شخص لآخر — المسار هنا <strong>اتجاه</strong> عام، وليس حكمًا ثابتًا.</div>
+    `;
+
+    // عند النقر، حرك الشريط ليوضح الموضع
+    if(fromClick){
+      setFillToDays(data.days);
+    }
+  }
+
+  // ————— ملء الشريط حسب الأيام —————
+  function setFillToDays(d){
+    const p = daysToPercent(d);
+    fill.style.width = p + '%';
+    try{ localStorage.setItem('recovery_days', String(d)); }catch(e){}
+    snapToNearest(d);
+  }
+
+  function snapToNearest(d){
+    // اختيار أقرب معلم للأيام المدخلة
+    let closest = milestones[0];
+    let best = Infinity;
+    milestones.forEach(m => {
+      const diff = Math.abs(m.days - d);
+      if(diff < best){ best = diff; closest = m; }
+    });
+    showMilestone(closest.id, false);
+  }
+
+  // ————— أحداث الواجهة —————
+  applyBtn.addEventListener('click', () => {
+    const d = Number(daysInput.value || 0);
+    if(Number.isFinite(d) && d >= 0){ setFillToDays(d); }
+  });
+
+  daysInput.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){ applyBtn.click(); }
+  });
+
+  printBtn.addEventListener('click', () => window.print());
+
+  // ————— تحجيم ديناميكي للعلامات —————
+  let resizeTimer;
+  window.addEventListener('resize', ()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderMarkers, 120);
+  });
+
+  // ————— تهيئة —————
+  renderMarkers();
+  // استرجاع الأيام المخزنة إن وجدت
+  let stored = 0;
+  try{ stored = Number(localStorage.getItem('recovery_days')||0) || 0; }catch(e){}
+  if(stored>0){ daysInput.value = stored; setFillToDays(stored); }
+  else { setFillToDays(0); showMilestone(milestones[0].id); }
+
+  </script>
+</body>
+</html>
